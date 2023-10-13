@@ -105,7 +105,7 @@ std::istream& operator>>(std::istream& is, Rational& ratio) {
             return is;
         }
     }
-    if (ratio.denom_ == 0) {
+    if (!FractionReducing(ratio.numer_, ratio.denom_)) {
         throw RationalDivisionByZero{};
     }
     return is;

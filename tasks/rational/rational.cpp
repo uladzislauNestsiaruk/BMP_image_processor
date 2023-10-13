@@ -38,10 +38,16 @@ int Rational::GetNumerator() const {
 
 void Rational::SetDenominator(int value) {
     denom_ = value;
+    if (!FractionReducing(numer_, denom_)) {
+        throw RationalDivisionByZero{};
+    }
 }
 
 void Rational::SetNumerator(int value) {
     numer_ = value;
+    if (!FractionReducing(numer_, denom_)) {
+        throw RationalDivisionByZero{};
+    }
 }
 
 void Rational::Set(int64_t numer, int64_t denom) {
@@ -89,7 +95,15 @@ Rational& operator--(Rational& ratio) {
 }
 
 std::istream& operator>>(std::istream& is, Rational& ratio) {
-    is >> ratio.numer_ >> ratio.denom_;
+    int numer = ratio.GetNumerator();
+    int denom = ratio.GetDenominator();
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
+    }
+    is >> ratio.numer_;
+    if (denom > 1) {
+        is >> denom;
+    }
     return is;
 }
 
@@ -131,10 +145,12 @@ Rational operator-(const Rational& lhs, const Rational& rhs) {
 }
 
 Rational operator*(const Rational& lhs, const Rational& rhs) {
-    Rational result(lhs.GetNumerator() * rhs.GetNumerator(), lhs.GetDenominator() * rhs.GetDenominator());
-    int divisor = std::__gcd(abs(result.GetDenominator()), result.GetNumerator());
-    result.SetNumerator(result.GetNumerator() / divisor);
-    result.SetDenominator(result.GetDenominator() / divisor);
+    int numer = lhs.GetNumerator() * rhs.GetNumerator();
+    int denom = lhs.GetDenominator() * rhs.GetDenominator();
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
+    }
+    Rational result(numer, denom);
     return result;
 }
 
@@ -185,6 +201,14 @@ bool operator!=(const Rational& lhs, const Rational& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Rational& ratio) {
-    os << ratio.GetNumerator() << " " << ratio.GetDenominator();
+    int numer = ratio.GetNumerator();
+    int denom = ratio.GetDenominator();
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
+    }
+    os << numer;
+    if (denom > 1) {
+        os << "/" << denom;
+    }
     return os;
 }

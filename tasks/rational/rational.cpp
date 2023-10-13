@@ -1,5 +1,19 @@
 #include "rational.h"
 
+bool FractionReducing(int& numerator, int& denominator) {
+    if (denominator == 0) {
+        return false;
+    }
+    int divisor = std::__gcd(abs(numerator), abs(denominator));
+    numerator /= divisor;
+    denominator /= divisor;
+    if (denominator < 0) {
+        denominator *= -1;
+        numerator *= -1;
+    }
+    return true;
+}
+
 Rational::Rational() : numer_(0), denom_(1) {
 }
 
@@ -7,9 +21,11 @@ Rational::Rational(int value) : numer_(value), denom_(1) {
 }  // NOLINT
 
 Rational::Rational(int numer, int denom) {
-    int divisor = std::gcd(numer, denom);
-    numer_ = numer / divisor;
-    denom_ = denom / divisor;
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
+    }
+    numer_ = numer;
+    denom_ = denom;
 }
 
 int Rational::GetDenominator() const {
@@ -29,22 +45,34 @@ void Rational::SetNumerator(int value) {
 }
 
 void Rational::Set(int64_t numer, int64_t denom) {
-    numer_ = numer;
-    denom_ = denom;
+    if (denom == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int divisor = std::__gcd(llabs(numer), llabs(denom));
+    if (denom < 0) {
+        denom *= -1;
+        numer *= -1;
+    }
+    numer_ = numer / divisor;
+    denom_ = denom / divisor;
 }
 
 Rational& operator+=(Rational& lhs, const Rational& rhs) {
     int new_numer = lhs.numer_ * rhs.denom_ + lhs.denom_ * rhs.numer_;
     int new_denom = lhs.denom_ * rhs.denom_;
-    int divisor = std::__gcd(abs(new_denom), new_numer);
-    lhs.Set(lhs.numer_ / divisor, lhs.denom_ / divisor);
+    if (!FractionReducing(new_numer, new_denom)) {
+        throw RationalDivisionByZero{};
+    }
+    lhs.Set(new_numer, new_denom);
     return lhs;
 }
 Rational& operator*=(Rational& lhs, const Rational& rhs) {
     int new_numer = lhs.numer_ * rhs.numer_;
     int new_denom = lhs.denom_ * rhs.denom_;
-    int divisor = std::__gcd(abs(new_denom), new_numer);
-    lhs.Set(lhs.numer_ / divisor, lhs.denom_ / divisor);
+    if (!FractionReducing(new_numer, new_denom)) {
+        throw RationalDivisionByZero{};
+    }
+    lhs.Set(new_numer, new_denom);
     return lhs;
 }
 
@@ -78,11 +106,12 @@ Rational& operator-=(Rational& lhs, const Rational& rhs) {
 }
 
 Rational& operator/=(Rational& lhs, const Rational& rhs) {
-    Rational temporary(rhs.GetDenominator(), rhs.GetNumerator());
-    if (temporary.GetDenominator() < 0) {
-        temporary.SetNumerator(-temporary.GetNumerator());
-        temporary.SetDenominator(-temporary.GetDenominator());
+    int numer = rhs.GetDenominator();
+    int denom = rhs.GetNumerator();
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
     }
+    Rational temporary(numer, denom);
     return lhs *= temporary;
 }
 
@@ -108,11 +137,12 @@ Rational operator*(const Rational& lhs, const Rational& rhs) {
 }
 
 Rational operator/(const Rational& lhs, const Rational& rhs) {
-    Rational temporary(rhs.GetDenominator(), rhs.GetNumerator());
-    if (temporary.GetDenominator() < 0) {
-        temporary.SetNumerator(-temporary.GetNumerator());
-        temporary.SetDenominator(-temporary.GetDenominator());
+    int numer = rhs.GetDenominator();
+    int denom = rhs.GetNumerator();
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
     }
+    Rational temporary(numer, denom);
     return lhs * temporary;
 }
 

@@ -29,6 +29,9 @@ Rational::Rational(int numer, int denom) {
 }
 
 int Rational::GetDenominator() const {
+    if (denom_ == 0) {
+        throw RationalDivisionByZero{};
+    }
     return denom_;
 }
 

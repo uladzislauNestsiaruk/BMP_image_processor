@@ -100,7 +100,7 @@ Rational& operator--(Rational& ratio) {
 std::istream& operator>>(std::istream& is, Rational& ratio) {
     char backslash = 0;
     is >> ratio.numer_ >> backslash >> ratio.denom_;
-    if (abs(ratio.denom_) > 0 && !FractionReducing(ratio.numer_, ratio.denom_)) {
+    if (ratio.denom_ == 0) {
         throw RationalDivisionByZero{};
     }
     return is;

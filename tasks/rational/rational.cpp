@@ -131,15 +131,17 @@ Rational& operator/=(Rational& lhs, const Rational& rhs) {
         throw RationalDivisionByZero{};
     }
     Rational temporary(numer, denom);
-    return lhs *= temporary;
+    lhs *= temporary;
+    return lhs;
 }
 
 Rational operator+(const Rational& lhs, const Rational& rhs) {
-    Rational result(lhs.GetNumerator() * rhs.GetDenominator() + lhs.GetDenominator() * rhs.GetNumerator(),
-                    lhs.GetDenominator() * rhs.GetDenominator());
-    int divisor = std::__gcd(abs(result.GetNumerator()), result.GetDenominator());
-    result.SetNumerator(result.GetNumerator() / divisor);
-    result.SetDenominator(result.GetDenominator() / divisor);
+    int numer = lhs.GetNumerator() * rhs.GetDenominator() + lhs.GetDenominator() * rhs.GetNumerator();
+    int denom = lhs.GetDenominator() * rhs.GetDenominator();
+    if (!FractionReducing(numer, denom)) {
+        throw RationalDivisionByZero{};
+    }
+    Rational result(numer, denom);
     return result;
 }
 

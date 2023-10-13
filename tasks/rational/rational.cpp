@@ -98,15 +98,10 @@ Rational& operator--(Rational& ratio) {
 }
 
 std::istream& operator>>(std::istream& is, Rational& ratio) {
-    int denom = ratio.GetDenominator();
-    if (denom == 0) {
+    char backslash = 0;
+    is >> ratio.numer_ >> backslash >> ratio.denom_;
+    if (!FractionReducing(ratio.numer_, ratio.denom_)) {
         throw RationalDivisionByZero{};
-    }
-    is >> ratio.numer_;
-    if (denom > 1) {
-        char backslash = 0;
-        is >> backslash;
-        is >> ratio.denom_;
     }
     return is;
 }

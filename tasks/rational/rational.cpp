@@ -98,8 +98,13 @@ Rational& operator--(Rational& ratio) {
 }
 
 std::istream& operator>>(std::istream& is, Rational& ratio) {
-    char backslash = 0;
-    is >> ratio.numer_ >> backslash >> ratio.denom_;
+    is >> ratio.numer_;
+    if (is.peek() == '/') {
+        is.ignore(1);
+        if (!(is >> ratio.denom_)) {
+            return is;
+        }
+    }
     if (ratio.denom_ == 0) {
         throw RationalDivisionByZero{};
     }

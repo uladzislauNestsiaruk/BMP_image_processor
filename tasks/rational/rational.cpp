@@ -48,7 +48,7 @@ void Rational::Set(int64_t numer, int64_t denom) {
     if (denom == 0) {
         throw RationalDivisionByZero{};
     }
-    int divisor = std::__gcd(llabs(numer), llabs(denom));
+    int64_t divisor = std::__gcd<int64_t>(llabs(numer), llabs(denom));
     if (denom < 0) {
         denom *= -1;
         numer *= -1;

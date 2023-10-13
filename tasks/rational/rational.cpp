@@ -98,9 +98,8 @@ Rational& operator--(Rational& ratio) {
 }
 
 std::istream& operator>>(std::istream& is, Rational& ratio) {
-    int numer = ratio.GetNumerator();
     int denom = ratio.GetDenominator();
-    if (!FractionReducing(numer, denom)) {
+    if (denom == 0) {
         throw RationalDivisionByZero{};
     }
     is >> ratio.numer_;

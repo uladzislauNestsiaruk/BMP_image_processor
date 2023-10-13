@@ -105,7 +105,7 @@ std::istream& operator>>(std::istream& is, Rational& ratio) {
     }
     is >> ratio.numer_;
     if (denom > 1) {
-        is >> denom;
+        is >> ratio.denom_;
     }
     return is;
 }

@@ -53,8 +53,10 @@ void Rational::Set(int64_t numer, int64_t denom) {
         denom *= -1;
         numer *= -1;
     }
-    numer_ = numer / divisor;
-    denom_ = denom / divisor;
+    numer /= divisor;
+    denom /= divisor;
+    numer_ = static_cast<int>(numer);
+    denom_ = static_cast<int>(denom);
 }
 
 Rational& operator+=(Rational& lhs, const Rational& rhs) {

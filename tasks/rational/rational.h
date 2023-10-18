@@ -14,17 +14,17 @@ class Rational {
 public:
     Rational();
 
-    Rational(int value);  // NOLINT
+    Rational(int64_t value);  // NOLINT
 
-    Rational(int numer, int denom);
+    Rational(int64_t numer, int64_t denom);
 
-    int GetNumerator() const;
+    int64_t GetNumerator() const;
 
-    int GetDenominator() const;
+    int64_t GetDenominator() const;
 
-    void SetNumerator(int value);
+    void SetNumerator(int64_t value);
 
-    void SetDenominator(int value);
+    void SetDenominator(int64_t value);
 
     friend Rational& operator+=(Rational& lhs, const Rational& rhs);
 
@@ -39,8 +39,8 @@ public:
 private:
     void Set(int64_t numer, int64_t denom);
 
-    int numer_;
-    int denom_;
+    int64_t numer_;
+    int64_t denom_;
 };
 
 Rational operator+(const Rational& ratio);

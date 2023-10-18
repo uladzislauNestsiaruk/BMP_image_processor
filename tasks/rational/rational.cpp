@@ -4,7 +4,7 @@ bool FractionReducing(int64_t& numerator, int64_t& denominator) {
     if (denominator == 0) {
         return false;
     }
-    int64_t divisor = std::__gcd<int64_t>(llabs(numerator), llabs(denominator));
+    int64_t divisor = std::__gcd(llabs(numerator), llabs(denominator));
     numerator /= divisor;
     denominator /= divisor;
     if (denominator < 0) {
@@ -64,6 +64,8 @@ void Rational::Set(int64_t numer, int64_t denom) {
     }
     numer /= divisor;
     denom /= divisor;
+    numer_ = static_cast<int>(numer);
+    denom_ = static_cast<int>(denom);
 }
 
 Rational& operator+=(Rational& lhs, const Rational& rhs) {

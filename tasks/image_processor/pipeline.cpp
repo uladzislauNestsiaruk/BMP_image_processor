@@ -8,3 +8,8 @@ void Pipeline::ApplyFilters(BMP& bmp_stream) {
         filter->Apply(bmp_stream);
     }
 }
+Pipeline::~Pipeline() {
+    for (uint32_t index = 0; index < filters_list_.size(); ++index) {
+        delete filters_list_[index];
+    }
+}

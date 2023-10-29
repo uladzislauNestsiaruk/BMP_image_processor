@@ -18,6 +18,8 @@ public:
 
     virtual void Apply(BMP& bmp_stream);
 
+    virtual ~Filter(){};
+
 protected:
     FilterSetting setting_;
 };

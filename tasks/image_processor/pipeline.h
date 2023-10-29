@@ -12,10 +12,14 @@
 class Pipeline {
 
 public:
+    Pipeline(){};
+
     explicit Pipeline(std::vector<Filter*> filters_list) : filters_list_(filters_list) {
     }
 
     void ApplyFilters(BMP& bmp_stream);
+
+    ~Pipeline();
 
 private:
     std::vector<Filter*> filters_list_;

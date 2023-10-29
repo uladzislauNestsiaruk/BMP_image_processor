@@ -6,10 +6,16 @@
 #define CPP_HSE_CLP_H
 
 #include <vector>
+#include <map>
 
 #include "filter_setting.h"
 
-struct CLP {
+class CLP {
+
+public:
+
+    CLP(){}
+
     /// Checks that char sequence represents a filter name
     bool IsFilterName(char* line) {
         return line[0] == '-';
@@ -25,5 +31,11 @@ struct CLP {
     /// Convert command line arguments to vector of correct FilterSetting objects, save input and output files paths
     std::vector<FilterSetting> ParametersToFilterSetting(int parameters_amount, char* arguments[],
                                                          std::string& input_file, std::string& output_file);
+
+private:
+
+    std::map<std::string, uint8_t> filters_description_ = {{"crop", 2},  {"gs", 0},   {"neg", 0},
+                                                          {"sharp", 0}, {"edge", 1}, {"blur", 1}};
+
 };
 #endif  // CPP_HSE_CLP_H

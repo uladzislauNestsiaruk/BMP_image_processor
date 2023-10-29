@@ -3,13 +3,13 @@
 //
 
 #include "pipeline.h"
-#include "filter_factory .h"
+#include "filter_factory.h"
 
 const Pipeline FilterFactory::BuildPipeline() {
     std::vector<Filter*> filters;
     for (const FilterSetting& setting : filters_settings_list_) {
         std::string filter_name = setting.GetFilterName();
-        Filter* filter = filters_list[filter_name](setting);
+        Filter* filter = FilterFactory::filters_list_[filter_name](setting);
         filters.emplace_back(filter);
     }
 

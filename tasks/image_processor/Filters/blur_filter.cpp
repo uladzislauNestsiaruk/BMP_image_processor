@@ -4,7 +4,6 @@
 
 #include "blur_filter.h"
 
-static double* e_array;
 
 struct DoublePixel {
     double R = 0;
@@ -12,7 +11,7 @@ struct DoublePixel {
     double B = 0;
 };
 
-const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatrix& matrix, double sigma) {
+const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatrix& matrix, double sigma, double* e_array) {
     int32_t dst = static_cast<int32_t>(BlurFilter::FILTER_SIGMA_COEFFICIENT * sigma);
 
     DoublePixel pixel;
@@ -29,7 +28,7 @@ const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatr
     return pixel;
 }
 
-const DoublePixel GetKernelMatrixValueVertical(int32_t y, int32_t x, double** matrix, double sigma, int32_t height) {
+const DoublePixel GetKernelMatrixValueVertical(int32_t y, int32_t x, double** matrix, double sigma, int32_t height, double* e_array) {
     int32_t dst = static_cast<int32_t>(BlurFilter::FILTER_SIGMA_COEFFICIENT * sigma);
 
     DoublePixel pixel;
@@ -53,7 +52,7 @@ Pixel CastDoublePixel(DoublePixel pixel) {
 
 void BlurFilter::Apply(BMP& bmp_stream) {
     double sigma = std::stod(setting_.GetFilterParameter(0));
-    e_array = new double[static_cast<int32_t>(FILTER_SIGMA_COEFFICIENT * sigma) + 1];
+    double* e_array = new double[static_cast<int32_t>(FILTER_SIGMA_COEFFICIENT * sigma) + 1];
 
     for (int32_t dst = 0; dst <= static_cast<int32_t>(FILTER_SIGMA_COEFFICIENT * sigma); ++dst) {
         double power = static_cast<double>(dst * dst) / 2 / sigma / sigma;
@@ -71,7 +70,7 @@ void BlurFilter::Apply(BMP& bmp_stream) {
         horizontal_matrix[y_coordinate] = new double[3 * width];
         for (int32_t x_coordinate = 0; x_coordinate < width; ++x_coordinate) {
             DoublePixel pixel =
-                GetKernelMatrixValueHorizontal(y_coordinate, x_coordinate, bmp_stream.GetPixelArray(), sigma);
+                GetKernelMatrixValueHorizontal(y_coordinate, x_coordinate, bmp_stream.GetPixelArray(), sigma, e_array);
             horizontal_matrix[y_coordinate][x_coordinate * 3] = pixel.B;
             horizontal_matrix[y_coordinate][x_coordinate * 3 + 1] = pixel.G;
             horizontal_matrix[y_coordinate][x_coordinate * 3 + 2] = pixel.R;
@@ -81,7 +80,7 @@ void BlurFilter::Apply(BMP& bmp_stream) {
     for (int32_t y_coordinate = 0; y_coordinate < height; ++y_coordinate) {
         for (int32_t x_coordinate = 0; x_coordinate < width; ++x_coordinate) {
             DoublePixel pixel =
-                GetKernelMatrixValueVertical(y_coordinate, x_coordinate, horizontal_matrix, sigma, height);
+                GetKernelMatrixValueVertical(y_coordinate, x_coordinate, horizontal_matrix, sigma, height, e_array);
             pixel.R *= multiplier;
             pixel.G *= multiplier;
             pixel.B *= multiplier;

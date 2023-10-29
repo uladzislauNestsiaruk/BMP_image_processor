@@ -5,10 +5,6 @@
 #include "clp.h"
 #include <vector>
 #include <stdexcept>
-#include <map>
-
-static std::map<std::string, uint8_t> filters_description = {{"crop", 2},  {"gs", 0},   {"neg", 0},
-                                                             {"sharp", 0}, {"edge", 1}, {"blur", 1}};
 
 std::string CLP::GetFilterName(char* line) {
     std::string filter_name = line;
@@ -25,10 +21,10 @@ void CLP::SetParameters(FilterSetting& filter_setting, std::vector<char*> parame
 }
 
 bool CLP::IsFilterSettingCorrect(const FilterSetting& filter_setting) {
-    if (!filters_description.contains(filter_setting.GetFilterName())) {
+    if (!CLP::filters_description_.contains(filter_setting.GetFilterName())) {
         throw std::runtime_error("Unknown filter name used.");
     }
-    if (filters_description[filter_setting.GetFilterName()] != filter_setting.GetFilterParametersAmount()) {
+    if (CLP::filters_description_[filter_setting.GetFilterName()] != filter_setting.GetFilterParametersAmount()) {
         throw std::runtime_error("Incorrect parameters amount for a particular filter.");
     }
     return true;

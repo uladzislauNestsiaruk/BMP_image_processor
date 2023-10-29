@@ -4,7 +4,7 @@
 
 #include "application.h"
 #include "bmp_stream.h"
-#include "filter_factory .h"
+#include "filter_factory.h"
 #include "clp.h"
 
 Application::Application(int argc, char **argv) {

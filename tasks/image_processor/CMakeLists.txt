@@ -22,8 +22,8 @@ add_executable(
         Filters/edge_detection.h
         Filters/blur_filter.cpp
         Filters/blur_filter.h
-        "filter_factory .cpp"
-        "filter_factory .h"
+        "filter_factory.cpp"
+        "filter_factory.h"
         pipeline.cpp
         pipeline.h
         application.cpp

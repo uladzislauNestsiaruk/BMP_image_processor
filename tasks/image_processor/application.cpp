@@ -9,8 +9,8 @@
 
 Application::Application(int argc, char **argv) {
     argc_ = argc;
-    argv_ = new char*[argc_];
-    for(int index = 0; index < argc_; ++index){
+    argv_ = new char *[argc_];
+    for (int index = 0; index < argc_; ++index) {
         argv_[index] = argv[index];
     }
 }
@@ -18,15 +18,16 @@ void Application::Execute() {
     CLP clp;
     std::string input_file;
     std::string output_file;
-    std::vector<FilterSetting> filters_settings = clp.ParametersToFilterSetting(argc_, argv_,
-                                                                                input_file, output_file);
-    BMPStream bmp_stream;
+    std::vector<FilterSetting> filters_settings = clp.ParametersToFilterSetting(argc_, argv_, input_file, output_file);
+
+    BMP bmp;
+    BMPStream bmp_stream(bmp);
     bmp_stream.OpenInputStream(input_file);
     bmp_stream.ReadBMP();
     bmp_stream.CloseInputStream();
     FilterFactory filters_factory(filters_settings);
     Pipeline pipeline = filters_factory.BuildPipeline();
-    pipeline.ApplyFilters(bmp_stream);
+    pipeline.ApplyFilters(bmp);
 
     bmp_stream.OpenOutputStream(output_file);
     bmp_stream.PrintBMPImage();

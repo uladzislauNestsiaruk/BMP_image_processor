@@ -5,19 +5,16 @@
 #ifndef CPP_HSE_APPLICATION_H
 #define CPP_HSE_APPLICATION_H
 
-class Application{
+class Application {
 
 public:
-
     Application(int argc, char* argv[]);
 
     void Execute();
 
 private:
-
     int argc_;
     char** argv_;
-
 };
 
 #endif  // CPP_HSE_APPLICATION_H

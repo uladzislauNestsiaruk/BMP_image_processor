@@ -6,26 +6,35 @@
 #define CPP_HSE_FILTER_SETTING_H
 
 #include <string>
-class FilterSetting{
+class FilterSetting {
 
 public:
-
     FilterSetting(){};
 
-    explicit FilterSetting(std::string filter_name): filter_name_(filter_name){}
+    explicit FilterSetting(std::string filter_name) : filter_name_(filter_name) {
+    }
 
-    const std::string& GetFilterName() const {return filter_name_;}
+    const std::string& GetFilterName() const {
+        return filter_name_;
+    }
 
-    const uint8_t GetFilterParametersAmount() const{return parameters_amount_;}
+    const uint8_t GetFilterParametersAmount() const {
+        return parameters_amount_;
+    }
 
-    const std::string* GetFilterParameters() const {return parameters_;}
+    const std::string* GetFilterParameters() const {
+        return parameters_;
+    }
 
-    const std::string& GetFilterParameter(uint8_t index){return parameters_[index];};
+    const std::string& GetFilterParameter(uint8_t index) {
+        return parameters_[index];
+    };
 
-    void SetParameters(std::string* parameters, uint8_t parameters_amount){parameters_amount_ = parameters_amount, parameters_ = parameters;}
+    void SetParameters(std::string* parameters, uint8_t parameters_amount) {
+        parameters_amount_ = parameters_amount, parameters_ = parameters;
+    }
 
 private:
-
     std::string filter_name_;
     std::string* parameters_;
     uint8_t parameters_amount_;

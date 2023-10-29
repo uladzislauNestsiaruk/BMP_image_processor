@@ -11,16 +11,17 @@ static const double RDELTA = 0.299;
 static const double GDELTA = 0.587;
 static const double BDELTA = 0.114;
 
-class GrayscaleFilter : public Filter{
+class GrayscaleFilter : public Filter {
 
 public:
+    explicit GrayscaleFilter(FilterSetting setting) : Filter(setting) {
+    }
 
-    explicit GrayscaleFilter(FilterSetting setting) : Filter(setting){}
+    static Filter* CreateGrayscaleFilter(const FilterSetting& setting) {
+        return new GrayscaleFilter(setting);
+    }
 
-    static Filter* CreateGrayscaleFilter(const FilterSetting& setting){return new GrayscaleFilter(setting);}
-
-    void apply(BMPStream& bmp_stream) override;
-
+    void apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_GRAYSCALE_H

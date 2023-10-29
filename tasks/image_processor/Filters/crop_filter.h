@@ -7,16 +7,17 @@
 
 #include "basic_filter.h"
 
-class CropFilter : public Filter{
+class CropFilter : public Filter {
 
 public:
+    explicit CropFilter(FilterSetting setting) : Filter(setting) {
+    }
 
-    explicit CropFilter(FilterSetting setting) : Filter(setting){}
+    static Filter* CreateCropFilter(const FilterSetting& setting) {
+        return new CropFilter(setting);
+    }
 
-    static Filter* CreateCropFilter(const FilterSetting& setting){return new CropFilter(setting);}
-
-    void apply(BMPStream& bmp_stream) override;
-
+    void apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_CROP_FILTER_H

@@ -8,19 +8,17 @@
 #include "../filter_setting.h"
 #include "../bmp_stream.h"
 
-class Filter{
+class Filter {
 
 public:
-
     Filter(){};
 
-    explicit Filter(const FilterSetting& setting) : setting_(setting){}
+    explicit Filter(const FilterSetting& setting) : setting_(setting) {
+    }
 
-    virtual void apply(BMPStream& bmp_stream);
+    virtual void apply(BMP& bmp_stream);
 
 protected:
-
-   FilterSetting setting_;
-
+    FilterSetting setting_;
 };
 #endif  // CPP_HSE_BASIC_FILTER_H

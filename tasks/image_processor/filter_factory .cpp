@@ -7,7 +7,7 @@
 
 const Pipeline FilterFactory::BuildPipeline() {
     std::vector<Filter*> filters;
-    for(const FilterSetting& setting : filters_settings_list_){
+    for (const FilterSetting& setting : filters_settings_list_) {
         std::string filter_name = setting.GetFilterName();
         Filter* filter = filters_list[filter_name](setting);
         filters.emplace_back(filter);

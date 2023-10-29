@@ -19,27 +19,23 @@
 
 typedef Filter* (*FilterProdPtr)(const FilterSetting&);
 
-static std::map<std::string,  FilterProdPtr> filters_list{
-    {"crop", CropFilter::CreateCropFilter},
-    {"blur", BlurFilter::CreateBlurFilter},
-    {"edge", EdgeDetectionFilter::CreateEdgeDetectionFilter},
-    {"gs", GrayscaleFilter::CreateGrayscaleFilter},
-    {"neg", NegativeFilter::CreateNegativeFilter},
-    {"sharp", SharpingFilter::CreateSharpingFilter}
-};
+static std::map<std::string, FilterProdPtr> filters_list{{"crop", CropFilter::CreateCropFilter},
+                                                         {"blur", BlurFilter::CreateBlurFilter},
+                                                         {"edge", EdgeDetectionFilter::CreateEdgeDetectionFilter},
+                                                         {"gs", GrayscaleFilter::CreateGrayscaleFilter},
+                                                         {"neg", NegativeFilter::CreateNegativeFilter},
+                                                         {"sharp", SharpingFilter::CreateSharpingFilter}};
 
-class FilterFactory{
+class FilterFactory {
 
 public:
-
-    explicit FilterFactory(std::vector<FilterSetting> filters_settings_list) : filters_settings_list_(filters_settings_list){};
+    explicit FilterFactory(std::vector<FilterSetting> filters_settings_list)
+        : filters_settings_list_(filters_settings_list){};
 
     const Pipeline BuildPipeline();
 
 private:
-
     std::vector<FilterSetting> filters_settings_list_;
-
 };
 
 #endif  // CPP_HSE_FILTER_FACTORY_H

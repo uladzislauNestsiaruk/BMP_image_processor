@@ -7,16 +7,17 @@
 
 #include "basic_filter.h"
 
-class NegativeFilter : public Filter{
+class NegativeFilter : public Filter {
 
 public:
+    explicit NegativeFilter(FilterSetting setting) : Filter(setting) {
+    }
 
-    explicit NegativeFilter(FilterSetting setting) : Filter(setting){}
+    static Filter* CreateNegativeFilter(const FilterSetting& setting) {
+        return new NegativeFilter(setting);
+    }
 
-    static Filter* CreateNegativeFilter(const FilterSetting& setting){return new NegativeFilter(setting);}
-
-    void apply(BMPStream& bmp_stream) override;
-
+    void apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_NEGATIVE_FILTER_H

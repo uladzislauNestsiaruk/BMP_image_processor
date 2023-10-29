@@ -9,18 +9,16 @@
 
 #include "Filters/basic_filter.h"
 
-class Pipeline{
+class Pipeline {
 
 public:
+    explicit Pipeline(std::vector<Filter*> filters_list) : filters_list_(filters_list) {
+    }
 
-    explicit Pipeline(std::vector<Filter*> filters_list) : filters_list_(filters_list) {}
-
-    void ApplyFilters(BMPStream& bmp_stream);
+    void ApplyFilters(BMP& bmp_stream);
 
 private:
-
     std::vector<Filter*> filters_list_;
-
 };
 
 #endif  // CPP_HSE_PIPELINE_H

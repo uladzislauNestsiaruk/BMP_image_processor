@@ -9,16 +9,17 @@
 
 const static int32_t EDGE_DETECTION_FILTER_MATRIX[] = {0, -1, 0, -1, 4, -1, 0, -1, 0};
 
-class EdgeDetectionFilter : public Filter{
+class EdgeDetectionFilter : public Filter {
 
 public:
+    explicit EdgeDetectionFilter(FilterSetting setting) : Filter(setting) {
+    }
 
-    explicit EdgeDetectionFilter(FilterSetting setting) : Filter(setting){}
+    static Filter* CreateEdgeDetectionFilter(const FilterSetting& setting) {
+        return new EdgeDetectionFilter(setting);
+    }
 
-    static Filter* CreateEdgeDetectionFilter(const FilterSetting& setting){return new EdgeDetectionFilter(setting);}
-
-    void apply(BMPStream& bmp_stream) override;
-
+    void apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_EDGE_DETECTION_H

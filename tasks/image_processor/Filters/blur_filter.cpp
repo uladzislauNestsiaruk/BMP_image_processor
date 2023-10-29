@@ -4,14 +4,14 @@
 
 #include "blur_filter.h"
 
-
 struct DoublePixel {
     double R = 0;
     double G = 0;
     double B = 0;
 };
 
-const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatrix& matrix, double sigma, double* e_array) {
+const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatrix& matrix, double sigma,
+                                                 double* e_array) {
     int32_t dst = static_cast<int32_t>(BlurFilter::FILTER_SIGMA_COEFFICIENT * sigma);
 
     DoublePixel pixel;
@@ -28,7 +28,8 @@ const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatr
     return pixel;
 }
 
-const DoublePixel GetKernelMatrixValueVertical(int32_t y, int32_t x, double** matrix, double sigma, int32_t height, double* e_array) {
+const DoublePixel GetKernelMatrixValueVertical(int32_t y, int32_t x, double** matrix, double sigma, int32_t height,
+                                               double* e_array) {
     int32_t dst = static_cast<int32_t>(BlurFilter::FILTER_SIGMA_COEFFICIENT * sigma);
 
     DoublePixel pixel;

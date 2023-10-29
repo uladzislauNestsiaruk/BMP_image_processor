@@ -13,8 +13,8 @@
 class CLP {
 
 public:
-
-    CLP(){}
+    CLP() {
+    }
 
     /// Checks that char sequence represents a filter name
     bool IsFilterName(char* line) {
@@ -33,9 +33,7 @@ public:
                                                          std::string& input_file, std::string& output_file);
 
 private:
-
     std::map<std::string, uint8_t> filters_description_ = {{"crop", 2},  {"gs", 0},   {"neg", 0},
-                                                          {"sharp", 0}, {"edge", 1}, {"blur", 1}};
-
+                                                           {"sharp", 0}, {"edge", 1}, {"blur", 1}};
 };
 #endif  // CPP_HSE_CLP_H

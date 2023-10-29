@@ -16,7 +16,7 @@ public:
     explicit Filter(const FilterSetting& setting) : setting_(setting) {
     }
 
-    virtual void apply(BMP& bmp_stream);
+    virtual void Apply(BMP& bmp_stream);
 
 protected:
     FilterSetting setting_;

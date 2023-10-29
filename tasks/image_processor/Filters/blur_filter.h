@@ -23,7 +23,7 @@ public:
         return new BlurFilter(setting);
     }
 
-    void apply(BMP& bmp_stream) override;
+    void Apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_BLUR_FILTER_H

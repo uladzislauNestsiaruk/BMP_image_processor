@@ -21,7 +21,7 @@ public:
         return new GrayscaleFilter(setting);
     }
 
-    void apply(BMP& bmp_stream) override;
+    void Apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_GRAYSCALE_H

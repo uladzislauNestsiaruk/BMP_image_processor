@@ -17,7 +17,7 @@
 #include "Filters/sharping_filter.h"
 #include "pipeline.h"
 
-typedef Filter* (*FilterProdPtr)(const FilterSetting&);
+using FilterProdPtr = Filter *(*)(const FilterSetting &);
 
 static std::map<std::string, FilterProdPtr> filters_list{{"crop", CropFilter::CreateCropFilter},
                                                          {"blur", BlurFilter::CreateBlurFilter},

@@ -4,7 +4,7 @@
 
 #include "crop_filter.h"
 
-void CropFilter::apply(BMP& bmp_stream) {
+void CropFilter::Apply(BMP& bmp_stream) {
     int32_t new_width = std::stoi(setting_.GetFilterParameter(0));
     int32_t new_height = std::stoi(setting_.GetFilterParameter(1));
 

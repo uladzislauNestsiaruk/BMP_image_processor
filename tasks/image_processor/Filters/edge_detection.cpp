@@ -4,7 +4,7 @@
 
 #include "edge_detection.h"
 
-void EdgeDetectionFilter::apply(BMP& bmp_stream) {
+void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
     double double_threshold = std::stod(setting_.GetFilterParameter(0));
     uint8_t threshold = static_cast<uint8_t>(static_cast<double>(UINT8_MAX) * double_threshold);
 

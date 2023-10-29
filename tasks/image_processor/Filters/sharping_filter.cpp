@@ -3,7 +3,7 @@
 //
 
 #include "sharping_filter.h"
-void SharpingFilter::apply(BMP& bmp_stream) {
+void SharpingFilter::Apply(BMP& bmp_stream) {
     ColorMatrix new_matrix;
     new_matrix.Initialize(bmp_stream.GetDibHeader().height, bmp_stream.GetDibHeader().width,
                           bmp_stream.GetPixelArray().GetPadding());

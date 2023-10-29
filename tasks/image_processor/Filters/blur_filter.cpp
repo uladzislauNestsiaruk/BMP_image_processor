@@ -51,7 +51,7 @@ Pixel CastDoublePixel(DoublePixel pixel) {
     return Pixel(b, g, r);
 }
 
-void BlurFilter::apply(BMP& bmp_stream) {
+void BlurFilter::Apply(BMP& bmp_stream) {
     double sigma = std::stod(setting_.GetFilterParameter(0));
     e_array = new double[static_cast<int32_t>(FILTER_SIGMA_COEFFICIENT * sigma) + 1];
 

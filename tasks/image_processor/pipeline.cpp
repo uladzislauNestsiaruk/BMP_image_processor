@@ -5,6 +5,6 @@
 #include "pipeline.h"
 void Pipeline::ApplyFilters(BMP& bmp_stream) {
     for (Filter* filter : filters_list_) {
-        filter->apply(bmp_stream);
+        filter->Apply(bmp_stream);
     }
 }

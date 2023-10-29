@@ -4,5 +4,5 @@
 
 #include "basic_filter.h"
 
-void Filter::apply(BMP& bmp_stream) {
+void Filter::Apply(BMP& bmp_stream) {
 }

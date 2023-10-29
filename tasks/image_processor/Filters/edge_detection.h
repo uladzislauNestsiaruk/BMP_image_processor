@@ -19,7 +19,7 @@ public:
         return new EdgeDetectionFilter(setting);
     }
 
-    void apply(BMP& bmp_stream) override;
+    void Apply(BMP& bmp_stream) override;
 };
 
 #endif  // CPP_HSE_EDGE_DETECTION_H

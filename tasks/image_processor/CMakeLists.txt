@@ -1,4 +1,33 @@
 add_executable(
     image_processor
     image_processor.cpp
+        bmp_stream.cpp
+        bmp_stream.h
+        color_matrix.cpp
+        color_matrix.h
+        clp.cpp
+        clp.h
+        filter_setting.h
+        Filters/basic_filter.cpp
+        Filters/basic_filter.h
+        Filters/crop_filter.cpp
+        Filters/crop_filter.h
+        Filters/negative_filter.cpp
+        Filters/negative_filter.h
+        Filters/grayscale.cpp
+        Filters/grayscale.h
+        Filters/sharping_filter.cpp
+        Filters/sharping_filter.h
+        Filters/edge_detection.cpp
+        Filters/edge_detection.h
+        Filters/blur_filter.cpp
+        Filters/blur_filter.h
+        "filter_factory .cpp"
+        "filter_factory .h"
+        pipeline.cpp
+        pipeline.h
+        application.cpp
+        application.h
+        bmp.cpp
+        bmp.h
 )

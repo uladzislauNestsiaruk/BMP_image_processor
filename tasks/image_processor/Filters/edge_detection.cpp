@@ -3,8 +3,14 @@
 //
 
 #include "edge_detection.h"
+#include "grayscale.h"
 
 void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
+
+    FilterSetting grayscale_setting("gs", std::vector<std::string>(0));
+    GrayscaleFilter grayscale_filter(grayscale_setting);
+    grayscale_filter.Apply(bmp_stream);
+
     double double_threshold = std::stod(setting_.GetFilterParameter(0));
     uint8_t threshold = static_cast<uint8_t>(static_cast<double>(UINT8_MAX) * double_threshold);
 
@@ -16,7 +22,7 @@ void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
             Pixel new_pixel = bmp_stream.GetPixelArray().GetCenter3X3MatrixPixel(y_coordinate, x_coordinate,
                                                                                  EdgeDetectionFilterMatrix);
 
-            if (std::max({new_pixel.B, new_pixel.R, new_pixel.G}) >= threshold) {
+            if (std::max({new_pixel.B, new_pixel.R, new_pixel.G}) > threshold) {
                 new_pixel = Pixel(UINT8_MAX, UINT8_MAX, UINT8_MAX);
             } else {
                 new_pixel = Pixel(0, 0, 0);

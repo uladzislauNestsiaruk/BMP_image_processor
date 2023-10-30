@@ -69,7 +69,7 @@ void BMPStream::ReadPixelArray() {
         throw std::logic_error("file is not open.");
     }
     file_.read(reinterpret_cast<char*>(&image_.GetPixelArray().GetPixelMatrix()),  // read image size amount of bytes
-               image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - static_cast<uint32_t>(sizeof(BMPDibHeader)));
+               image_.GetDibHeader().image_size);
 }
 
 void BMPStream::ReadBMP() {
@@ -117,7 +117,7 @@ void BMPStream::PrintBMPPixelArray() {
     }
     output_file_.write(
         reinterpret_cast<char*>(&image_.GetPixelArray().GetPixelMatrix()),  // save sizeof(pixel storage)  bytes
-        image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - static_cast<uint32_t>(sizeof(BMPDibHeader)));
+        image_.GetDibHeader().image_size);
 }
 void BMPStream::PrintBMPImage() {
     if (!output_file_.is_open()) {

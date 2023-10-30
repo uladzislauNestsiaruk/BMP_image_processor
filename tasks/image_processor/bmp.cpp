@@ -6,5 +6,5 @@
 
 void BMP::UpdatePixelArraySizeDescription(uint32_t new_image_size) {
     dib_header_.image_size = 0;
-    file_header_.file_size = sizeof(BMPFileHeader) + dib_header_.size + new_image_size;
+    file_header_.file_size = sizeof(BMPFileHeader) + sizeof(BMPDibHeader) + new_image_size;
 }

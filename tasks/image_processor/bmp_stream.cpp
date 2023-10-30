@@ -59,7 +59,7 @@ void BMPStream::ReadPixelArray() {
         throw std::logic_error("file is not open.");
     }
     file_.read(reinterpret_cast<char*>(&image_.GetPixelArray().GetPixelMatrix()),
-               image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - image_.GetDibHeader().size);
+               image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - static_cast<uint32_t>(sizeof(BMPDibHeader)));
 }
 
 void BMPStream::ReadBMP() {
@@ -100,7 +100,7 @@ void BMPStream::PrintBMPPixelArray() {
         throw std::logic_error("output file is not already open.");
     }
     output_file_.write(reinterpret_cast<char*>(&image_.GetPixelArray().GetPixelMatrix()),
-                       image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - image_.GetDibHeader().size);
+                       image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - static_cast<uint32_t>(sizeof(BMPDibHeader)));
 }
 void BMPStream::PrintBMPImage() {
     if (!output_file_.is_open()) {

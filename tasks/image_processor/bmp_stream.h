@@ -30,7 +30,7 @@ private:
     static const uint16_t BMP_SIGNATURE = 0x4d42;
     static const uint16_t BMP_BIT_PER_PIXEL = 24;
     static const uint32_t DWORD = 32;  // machine word
-
+    /// Function to read and save bmp parts
     void ReadBMPFileHeader();
 
     void ReadBMPDibHeader();

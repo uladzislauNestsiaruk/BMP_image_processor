@@ -14,6 +14,12 @@ void ValidRgbValue(int64_t& value) {
     }
 };
 
+ColorMatrix::~ColorMatrix() {
+    if (width_ * height_ > 0) {
+        delete[] matrix_;
+    }
+}
+
 ColorMatrix& ColorMatrix::operator=(const ColorMatrix& rhs) {
     if (this != &rhs) {
         height_ = rhs.height_;

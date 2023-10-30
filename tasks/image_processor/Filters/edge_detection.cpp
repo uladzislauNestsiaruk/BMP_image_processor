@@ -5,7 +5,6 @@
 #include "edge_detection.h"
 #include "grayscale.h"
 
-
 void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
 
     FilterSetting grayscale_setting("gs", std::vector<std::string>(0));

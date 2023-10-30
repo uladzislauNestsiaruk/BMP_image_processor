@@ -69,15 +69,13 @@ public:
 
     void SetPixel(uint32_t x, uint32_t y, const Pixel& pixel);
 
-    ~ColorMatrix() {
-        delete[] matrix_;
-    }
+    ~ColorMatrix();
 
 private:
     const Pixel GetClosestPixel(int32_t x, int32_t y);
 
-    uint32_t width_;
-    uint32_t height_;
+    uint32_t width_ = 0;
+    uint32_t height_ = 0;
     uint8_t padding_;
     uint8_t* matrix_;
 };

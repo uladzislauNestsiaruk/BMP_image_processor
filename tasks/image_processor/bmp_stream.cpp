@@ -73,9 +73,22 @@ void BMPStream::ReadPixelArray() {
 }
 
 void BMPStream::ReadBMP() {
-    ReadBMPFileHeader();
-    ReadBMPDibHeader();
-    ReadPixelArray();
+    // Since we cant do anything with any exception during reading process we just rethrow them.
+    try {
+        ReadBMPFileHeader();
+    } catch (...) {
+        throw;
+    }
+    try {
+        ReadBMPDibHeader();
+    } catch (...) {
+        throw;
+    }
+    try {
+        ReadPixelArray();
+    } catch (...) {
+        throw;
+    }
 }
 
 void BMPStream::OpenOutputStream(const std::string& output_filename) {
@@ -120,12 +133,22 @@ void BMPStream::PrintBMPPixelArray() {
         image_.GetFileHeader().file_size - BMP_FILE_HEADER_SIZE - static_cast<uint32_t>(sizeof(BMPDibHeader)));
 }
 void BMPStream::PrintBMPImage() {
-    if (!output_file_.is_open()) {
-        throw std::logic_error("output file is not already open.");
+    // Since we cant do anything with any exception during saving process we just rethrow them.
+    try {
+        PrintBMPFileHeader();
+    } catch (...) {
+        throw;
     }
-    PrintBMPFileHeader();
-    PrintBMPDibHeader();
-    PrintBMPPixelArray();
+    try {
+        PrintBMPDibHeader();
+    } catch (...) {
+        throw;
+    }
+    try {
+        PrintBMPPixelArray();
+    } catch (...) {
+        throw;
+    }
 }
 void BMPStream::CloseOutputStream() {
     // to close output stream it has to be open

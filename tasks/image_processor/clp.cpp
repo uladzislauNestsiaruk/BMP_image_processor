@@ -9,12 +9,12 @@
 
 bool CLP::CheckIsInputPathCorrect(const std::string& path) {
     std::ifstream stream(path);
-    return !!stream;
+    return stream.is_open();
 }
 
 bool CLP::CheckIsOutputPathCorrect(const std::string& path) {
     std::ofstream stream(path);
-    return !!stream;
+    return stream.is_open();
 }
 
 std::string CLP::GetFilterName(char* line) {
@@ -46,7 +46,7 @@ void CLP::FiltersSettingsVerification(std::vector<FilterSetting>& filters_settin
             std::cerr
                 << "Used filter with wrong name or wrong amount of parameters at particular filter so it's skipped.\n";
         } catch (...) {
-            std::cerr << "Unknown error.\n";
+            std::cerr << "Unknown error during filter verification.\n";
         }
     }
     filters_settings = correct_filters_settings;

@@ -8,9 +8,9 @@
 #include "filter_factory.h"
 #include "clp.h"
 
-Application::Application(int argc, char **argv) {
+Application::Application(int argc, char** argv) {
     argc_ = argc;
-    argv_ = new char *[argc_];
+    argv_ = new char*[argc_];
     for (int index = 0; index < argc_; ++index) {
         argv_[index] = argv[index];
     }
@@ -18,6 +18,110 @@ Application::Application(int argc, char **argv) {
 
 Application::~Application() {
     delete[] argv_;
+}
+
+bool Application::OpenInputStreamExceptionHandler(BMPStream& bmp_stream, const std::string& input_file) {
+    try {
+        bmp_stream.OpenInputStream(input_file);
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file reading.\n";
+        return false;
+    }
+    return true;
+}
+
+bool Application::OpenOutputStreamExceptionHandler(BMPStream& bmp_stream, const std::string& output_file) {
+    try {
+        bmp_stream.OpenOutputStream(output_file);
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file saving.\n";
+        return false;
+    }
+    return true;
+}
+
+bool Application::ReadBMPExceptionHandler(BMPStream& bmp_stream) {
+    try {
+        bmp_stream.ReadBMP();
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file reading.\n";
+        return false;
+    }
+    return true;
+}
+
+bool Application::PrintBMPExceptionHandler(BMPStream& bmp_stream) {
+    try {
+        bmp_stream.PrintBMPImage();
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file saving.\n";
+        return false;
+    }
+    return true;
+}
+
+bool Application::CloseInputStreamExceptionHandler(BMPStream& bmp_stream) {
+    try {
+        bmp_stream.CloseInputStream();
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file reading.\n";
+        return false;
+    }
+    return true;
+}
+
+bool Application::CloseOutputStreamExceptionHandler(BMPStream& bmp_stream) {
+    try {
+        bmp_stream.CloseOutputStream();
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file saving.\n";
+        return false;
+    }
+    return true;
+}
+
+bool Application::WorkWithInputStream(BMPStream& bmp_stream, const std::string& input_file) {
+    try {
+        return OpenInputStreamExceptionHandler(bmp_stream, input_file) && ReadBMPExceptionHandler(bmp_stream) &&
+               CloseInputStreamExceptionHandler(bmp_stream);
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file reading.\n";
+        return false;
+    }
+}
+
+bool Application::WorkWithOutputStream(BMPStream& bmp_stream, const std::string& output_file) {
+    try {
+        return OpenOutputStreamExceptionHandler(bmp_stream, output_file) && PrintBMPExceptionHandler(bmp_stream) &&
+               CloseOutputStreamExceptionHandler(bmp_stream);
+    } catch (std::exception& e) {
+        std::cerr << e.what() << "\n";
+        return false;
+    } catch (...) {
+        std::cerr << "Unknown error during file reading.\n";
+        return false;
+    }
 }
 
 void Application::Execute() {
@@ -28,7 +132,7 @@ void Application::Execute() {
     std::vector<FilterSetting> filters_settings;
     try {
         filters_settings = clp.ParametersToFilterSetting(argc_, argv_, input_file, output_file);
-    } catch (std::exception &e) {
+    } catch (std::exception& e) {
         std::cerr << e.what() << "\n";
         return;
     } catch (...) {
@@ -38,15 +142,13 @@ void Application::Execute() {
     // Read bmp from input
     BMP bmp;
     BMPStream bmp_stream(bmp);
-    bmp_stream.OpenInputStream(input_file);
-    bmp_stream.ReadBMP();
-    bmp_stream.CloseInputStream();
+    if (!WorkWithInputStream(bmp_stream, input_file)) {
+        return;
+    }
     // Apply all filters to the image
     FilterFactory filters_factory(filters_settings);
     Pipeline pipeline = filters_factory.BuildPipeline();
     pipeline.ApplyFilters(bmp);
     // Print final image
-    bmp_stream.OpenOutputStream(output_file);
-    bmp_stream.PrintBMPImage();
-    bmp_stream.CloseOutputStream();
+    WorkWithOutputStream(bmp_stream, output_file);
 }

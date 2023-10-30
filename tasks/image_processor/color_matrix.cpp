@@ -19,8 +19,8 @@ ColorMatrix& ColorMatrix::operator=(const ColorMatrix& rhs) {
         height_ = rhs.height_;
         width_ = rhs.width_;
         padding_ = rhs.padding_;
-        uint8_t* new_matrix = new uint8_t[height_ * width_ * sizeof(Pixel) + height_ * padding_];
-        std::copy(rhs.matrix_, rhs.matrix_ + height_ * width_ * sizeof(Pixel) + height_ * padding_, new_matrix);
+        uint8_t* new_matrix = new uint8_t[height_ * width_ * 3 + height_ * padding_];
+        std::copy(rhs.matrix_, rhs.matrix_ + height_ * width_ * 3 + height_ * padding_, new_matrix);
         delete[] matrix_;
         matrix_ = new_matrix;
     }
@@ -38,7 +38,7 @@ void ColorMatrix::Initialize(uint32_t height, uint32_t width, uint8_t padding) {
     width_ = width;
     height_ = height;
     padding_ = padding;
-    matrix_ = new uint8_t[height_ * width_ * sizeof(Pixel) + height_ * padding_];
+    matrix_ = new uint8_t[height_ * width_ * 3 + height_ * padding_];
 }
 
 Pixel& Pixel::operator=(const Pixel& rhs) {

@@ -24,7 +24,7 @@ void CropFilter::Apply(BMP& bmp) {
         }
     }
 
-    uint32_t bytes_per_row = bmp.GetDibHeader().bit_per_pixel * new_width + new_padding;
+    uint32_t bytes_per_row = 3 * new_width + new_padding;
     uint32_t new_image_size = bytes_per_row * new_height;
 
     bmp.SetWidth(new_width);

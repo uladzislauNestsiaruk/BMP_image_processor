@@ -10,6 +10,8 @@
 class CropFilter : public Filter {
 
 public:
+    uint16_t PARAMETERS_AMOUNT = 2;
+
     explicit CropFilter(FilterSetting setting) : Filter(setting) {
     }
 

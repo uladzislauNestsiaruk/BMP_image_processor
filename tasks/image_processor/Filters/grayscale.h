@@ -14,6 +14,8 @@ static const double BDELTA = 0.114;
 class GrayscaleFilter : public Filter {
 
 public:
+    const static uint16_t PARAMETERS_AMOUNT = 0;
+
     explicit GrayscaleFilter(FilterSetting setting) : Filter(setting) {
     }
 

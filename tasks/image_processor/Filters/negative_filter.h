@@ -10,6 +10,8 @@
 class NegativeFilter : public Filter {
 
 public:
+    const static uint16_t PARAMETERS_AMOUNT = 0;
+
     explicit NegativeFilter(FilterSetting setting) : Filter(setting) {
     }
 

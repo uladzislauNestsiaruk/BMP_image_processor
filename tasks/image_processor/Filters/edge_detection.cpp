@@ -14,7 +14,7 @@ void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
     for (int32_t y_coordinate = 0; y_coordinate < bmp_stream.GetDibHeader().height; ++y_coordinate) {
         for (int32_t x_coordinate = 0; x_coordinate < bmp_stream.GetDibHeader().width; ++x_coordinate) {
             Pixel new_pixel = bmp_stream.GetPixelArray().GetCenter3X3MatrixPixel(y_coordinate, x_coordinate,
-                                                                                 EDGE_DETECTION_FILTER_MATRIX);
+                                                                                 EdgeDetectionFilterMatrix);
 
             if (std::max({new_pixel.B, new_pixel.R, new_pixel.G}) >= threshold) {
                 new_pixel = Pixel(UINT8_MAX, UINT8_MAX, UINT8_MAX);

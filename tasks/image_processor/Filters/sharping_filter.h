@@ -7,11 +7,11 @@
 
 #include "basic_filter.h"
 
-const static int32_t SHARPING_FILTER_MATRIX[] = {0, -1, 0, -1, 5, -1, 0, -1, 0};
-
 class SharpingFilter : public Filter {
 
 public:
+    const static uint16_t PARAMETERS_AMOUNT = 0;
+
     explicit SharpingFilter(FilterSetting setting) : Filter(setting) {
     }
 
@@ -20,6 +20,9 @@ public:
     }
 
     void Apply(BMP& bmp_stream) override;
+
+private:
+    constexpr static int32_t SharpingFilterMatrix[] = {0, -1, 0, -1, 5, -1, 0, -1, 0};
 };
 
 #endif  // CPP_HSE_SHARPING_FILTER_H

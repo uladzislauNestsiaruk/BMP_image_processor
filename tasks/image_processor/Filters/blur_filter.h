@@ -15,6 +15,7 @@ public:
     static const int32_t FILTER_SIGMA_COEFFICIENT = 3;
     const double PI = 3.14159265358979323846264338327950;
     const double E = 2.71828182846;
+    static const uint16_t PARAMETERS_AMOUNT = 1;
 
     explicit BlurFilter(FilterSetting setting) : Filter(setting) {
     }

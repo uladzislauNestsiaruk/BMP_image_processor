@@ -12,7 +12,7 @@ void BMPStream::OpenInputStream(const std::string& filename) {
         throw std::logic_error("file is already open.");
     }
     filename_ = filename;
-    file_.open(filename_);
+    file_.open(filename_, std::ios::binary);
     if (!file_.is_open()) {
         throw std::logic_error("unknown error during OpenInputStream(filename).");
     }

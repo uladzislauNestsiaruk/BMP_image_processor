@@ -18,19 +18,19 @@ public:
     FilterSetting(std::string filter_name, std::vector<std::string> parameters)
         : filter_name_(filter_name), parameters_(parameters) {
     }
-
+    /// Filter name getter.
     const std::string& GetFilterName() const {
         return filter_name_;
     }
-
+    /// Filter parameters setter
     void SetFilterParameters(std::vector<std::string> parameters) {
         parameters_ = parameters;
     }
-
+    /// Filter parameters getters
     const std::vector<std::string> GetFilterParameters() const {
         return parameters_;
     }
-
+    /// Get filter parameter at particular index
     const std::string& GetFilterParameter(uint8_t index) {
         return parameters_[index];
     };

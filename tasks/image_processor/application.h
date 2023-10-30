@@ -5,6 +5,8 @@
 #ifndef CPP_HSE_APPLICATION_H
 #define CPP_HSE_APPLICATION_H
 
+#include <stdexcept>
+
 class Application {
 
 public:

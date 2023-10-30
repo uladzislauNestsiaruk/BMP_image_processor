@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <map>
+#include <fstream>
 
 #include "filter_setting.h"
 
@@ -29,6 +30,10 @@ public:
     /// Convert command line arguments to vector of correct FilterSetting objects, save input and output files paths
     std::vector<FilterSetting> ParametersToFilterSetting(int parameters_amount, char* arguments[],
                                                          std::string& input_file, std::string& output_file);
+    /// Checks is input file path correct.
+    bool CheckIsInputPathCorrect(const std::string& path);
+    /// Checks is output file path correct
+    bool CheckIsOutputPathCorrect(const std::string& path);
 
 private:
     std::map<std::string, uint8_t> filters_description_ = {{"crop", 2},  {"gs", 0},   {"neg", 0},

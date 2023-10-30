@@ -5,9 +5,9 @@
 #include "blur_filter.h"
 
 struct DoublePixel {
-    double R = 0;
-    double G = 0;
-    double B = 0;
+    long double R = 0;
+    long double G = 0;
+    long double B = 0;
 };
 
 const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatrix& matrix, double sigma,
@@ -16,13 +16,13 @@ const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatr
 
     DoublePixel pixel;
 
-    for (int32_t x_coordinate = std::max(0, x - dst);
-         x_coordinate < std::min(x + dst, static_cast<int32_t>(matrix.GetWidth())); ++x_coordinate) {
-        Pixel window_pixel = matrix.GetPixel(y, x_coordinate);
+    for (int32_t x_coordinate = x - dst; x_coordinate <= x + dst; ++x_coordinate) {
+        int32_t actual_x = std::max(0, std::min(static_cast<int32_t>(matrix.GetWidth()) - 1, x_coordinate));
+        Pixel window_pixel = matrix.GetPixel(y, actual_x);
         double divisor = e_array[abs(x - x_coordinate)];
-        pixel.R += static_cast<double>(window_pixel.R) / divisor;
-        pixel.G += static_cast<double>(matrix.GetPixel(y, x_coordinate).G) / e_array[abs(x - x_coordinate)];
-        pixel.B += static_cast<double>(matrix.GetPixel(y, x_coordinate).B) / e_array[abs(x - x_coordinate)];
+        pixel.R += static_cast<long double>(window_pixel.R) / divisor;
+        pixel.G += static_cast<long double>(window_pixel.G) / divisor;
+        pixel.B += static_cast<long double>(window_pixel.B) / divisor;
     }
 
     return pixel;
@@ -34,10 +34,11 @@ const DoublePixel GetKernelMatrixValueVertical(int32_t y, int32_t x, double** ma
 
     DoublePixel pixel;
 
-    for (int32_t y_coordinate = std::max(0, y - dst); y_coordinate < std::min(y + dst, height); ++y_coordinate) {
-        pixel.B += matrix[y_coordinate][3 * x] / e_array[abs(y - y_coordinate)];
-        pixel.G += matrix[y_coordinate][3 * x + 1] / e_array[abs(y - y_coordinate)];
-        pixel.R += matrix[y_coordinate][3 * x + 2] / e_array[abs(y - y_coordinate)];
+    for (int32_t y_coordinate = y - dst; y_coordinate <= y + dst; ++y_coordinate) {
+        int32_t actual_y = std::max(0, std::min(height - 1, y_coordinate));
+        pixel.B += matrix[actual_y][3 * x] / e_array[abs(y - y_coordinate)];
+        pixel.G += matrix[actual_y][3 * x + 1] / e_array[abs(y - y_coordinate)];
+        pixel.R += matrix[actual_y][3 * x + 2] / e_array[abs(y - y_coordinate)];
     }
 
     return pixel;

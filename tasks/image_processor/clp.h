@@ -22,8 +22,6 @@ public:
     }
     /// Extracts filter name from char sequence
     std::string GetFilterName(char* line);
-    /// Set parameters from vector to the FilterSetting object
-    void SetParameters(FilterSetting& filter_setting, std::vector<char*> parameters);
     /// Checks that filter ith such FilterSetting can exist.
     bool IsFilterSettingCorrect(const FilterSetting& filter_setting);
     /// Checks correctness of each FilterSetting objects

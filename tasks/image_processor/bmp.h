@@ -62,6 +62,14 @@ public:
         dib_header_.height = height;
     }
 
+    const int32_t GetWidth() const {
+        return dib_header_.width;
+    }
+
+    const int32_t GetHeight() const {
+        return dib_header_.height;
+    }
+
     void UpdatePixelArraySizeDescription(uint32_t new_image_size);
 
     ~BMP(){};

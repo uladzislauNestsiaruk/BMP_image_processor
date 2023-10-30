@@ -15,6 +15,7 @@
 #include "Filters/grayscale.h"
 #include "Filters/negative_filter.h"
 #include "Filters/sharping_filter.h"
+#include "Filters/genius_filter.h"
 #include "pipeline.h"
 
 using FilterProdPtr = Filter *(*)(const FilterSetting &);
@@ -36,7 +37,8 @@ private:
                                                        {"edge", EdgeDetectionFilter::CreateEdgeDetectionFilter},
                                                        {"gs", GrayscaleFilter::CreateGrayscaleFilter},
                                                        {"neg", NegativeFilter::CreateNegativeFilter},
-                                                       {"sharp", SharpingFilter::CreateSharpingFilter}};
+                                                       {"sharp", SharpingFilter::CreateSharpingFilter},
+                                                       {"genius", GeniusFilter::CreateGeniusFilter}};
 };
 
 #endif  // CPP_HSE_FILTER_FACTORY_H

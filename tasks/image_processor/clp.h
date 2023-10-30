@@ -19,7 +19,7 @@ public:
 
     /// Checks that char sequence represents a filter name
     bool IsFilterName(char* line) {
-        return line[0] == '-';
+        return line[0] == '-' && std::isalpha(line[1]);
     }
     /// Extracts filter name from char sequence
     std::string GetFilterName(char* line);
@@ -36,7 +36,7 @@ public:
     bool CheckIsOutputPathCorrect(const std::string& path);
 
 private:
-    std::map<std::string, uint8_t> filters_description_ = {{"crop", 2},  {"gs", 0},   {"neg", 0},
-                                                           {"sharp", 0}, {"edge", 1}, {"blur", 1}};
+    std::map<std::string, uint8_t> filters_description_ = {{"crop", 2}, {"gs", 0},   {"neg", 0},   {"sharp", 0},
+                                                           {"edge", 1}, {"blur", 1}, {"genius", 1}};
 };
 #endif  // CPP_HSE_CLP_H

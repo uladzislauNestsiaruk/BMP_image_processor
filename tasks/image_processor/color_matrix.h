@@ -6,6 +6,7 @@
 #define CPP_HSE_COLOR_MATRIX_H
 
 #include <cstdint>
+#include <tuple>
 
 static const uint8_t MATRIX3X3SIZE = 9;  // Wow, NOW IT'S NOT A MAGIC NUMBER!!!!!
 
@@ -66,6 +67,9 @@ public:
     Pixel GetPixel(uint32_t x, uint32_t y);
 
     const Pixel GetCenter3X3MatrixPixel(uint32_t x, uint32_t y, const int32_t matrix[]);
+
+    const std::tuple<double, double, double> GetCenter3X3MatrixDoublePixel(uint32_t x, uint32_t y,
+                                                                           const int32_t matrix[]);
 
     void SetPixel(uint32_t x, uint32_t y, const Pixel& pixel);
 

@@ -30,4 +30,6 @@ add_executable(
         application.h
         bmp.cpp
         bmp.h
+        Filters/genius_filter.cpp
+        Filters/genius_filter.h
 )

@@ -137,3 +137,22 @@ const Pixel ColorMatrix::GetCenter3X3MatrixPixel(uint32_t y, uint32_t x, const i
     const Pixel pixel(b, g, r);
     return pixel;
 }
+const std::tuple<double, double, double> ColorMatrix::GetCenter3X3MatrixDoublePixel(uint32_t x, uint32_t y,
+                                                                                    const int32_t* matrix) {
+    double r = 0;
+    double g = 0;
+    double b = 0;
+
+    for (uint8_t y_coordinate = 0; y_coordinate < 3; ++y_coordinate) {
+        for (uint8_t x_coordinate = 0; x_coordinate < 3; ++x_coordinate) {
+            int32_t new_x_coordinate = static_cast<int32_t>(x) + x_coordinate - 1;
+            int32_t new_y_coordinate = static_cast<int32_t>(y) + y_coordinate - 1;
+            Pixel pixel = GetClosestPixel(new_y_coordinate, new_x_coordinate);
+            r += matrix[3 * y_coordinate + x_coordinate] * pixel.R;
+            g += matrix[3 * y_coordinate + x_coordinate] * pixel.G;
+            b += matrix[3 * y_coordinate + x_coordinate] * pixel.B;
+        }
+    }
+
+    return std::make_tuple(b, g, r);
+}

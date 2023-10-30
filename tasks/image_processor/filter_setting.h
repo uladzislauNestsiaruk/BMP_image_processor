@@ -34,6 +34,10 @@ public:
         parameters_amount_ = parameters_amount, parameters_ = parameters;
     }
 
+    ~FilterSetting() {
+        delete parameters_;
+    }
+
 private:
     std::string filter_name_;
     std::string* parameters_;

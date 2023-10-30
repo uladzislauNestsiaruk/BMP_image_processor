@@ -4,7 +4,18 @@
 
 #include "crop_filter.h"
 
+void CropFilter::IsParametersCorrect(const FilterSetting& setting) {
+    int32_t new_width = std::stoi(setting_.GetFilterParameter(0));
+    int32_t new_height = std::stoi(setting_.GetFilterParameter(1));
+    // cant crop image with non-positive parameters
+    if (std::min(new_height, new_width) <= 0) {
+        throw std::logic_error("Crop values have to be positive.");
+    }
+}
+
 void CropFilter::Apply(BMP& bmp) {
+    IsParametersCorrect(setting_);
+
     int32_t new_width = std::stoi(setting_.GetFilterParameter(0));
     int32_t new_height = std::stoi(setting_.GetFilterParameter(1));
 

@@ -10,6 +10,14 @@ struct DoublePixel {
     long double B = 0;
 };
 
+void BlurFilter::IsParametersCorrect(const FilterSetting& setting) {
+    double sigma = std::stod(setting_.GetFilterParameter(0));
+    // it just makes no sense to blur with negative sigma(is it sharping?)
+    if (sigma < 0) {
+        throw std::logic_error("blur sigma value has to be positive.");
+    }
+}
+
 const DoublePixel GetKernelMatrixValueHorizontal(int32_t y, int32_t x, ColorMatrix& matrix, double sigma,
                                                  long double* e_array) {
     int32_t dst = static_cast<int32_t>(BlurFilter::FILTER_SIGMA_COEFFICIENT * sigma);
@@ -53,7 +61,10 @@ Pixel CastDoublePixel(DoublePixel pixel) {
 }
 
 void BlurFilter::Apply(BMP& bmp_stream) {
+    IsParametersCorrect(setting_);
+
     double sigma = std::stod(setting_.GetFilterParameter(0));
+    sigma = std::min(sigma, MAXIMUM_SIGMA_VALUE);
     long double* e_array = new long double[static_cast<int32_t>(FILTER_SIGMA_COEFFICIENT * sigma) + 1];
 
     for (int32_t dst = 0; dst <= static_cast<int32_t>(FILTER_SIGMA_COEFFICIENT * sigma); ++dst) {

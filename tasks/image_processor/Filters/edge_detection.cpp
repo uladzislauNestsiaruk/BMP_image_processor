@@ -5,6 +5,7 @@
 #include "edge_detection.h"
 #include "grayscale.h"
 
+
 void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
 
     FilterSetting grayscale_setting("gs", std::vector<std::string>(0));
@@ -12,6 +13,7 @@ void EdgeDetectionFilter::Apply(BMP& bmp_stream) {
     grayscale_filter.Apply(bmp_stream);
 
     double double_threshold = std::stod(setting_.GetFilterParameter(0));
+    double_threshold = std::max(0.0, std::min(double_threshold, 1.0));
     uint8_t threshold = static_cast<uint8_t>(static_cast<double>(UINT8_MAX) * double_threshold);
 
     ColorMatrix new_matrix;

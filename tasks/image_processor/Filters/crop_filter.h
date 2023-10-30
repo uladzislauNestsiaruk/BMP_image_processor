@@ -19,6 +19,9 @@ public:
         return new CropFilter(setting);
     }
 
+    ///!!!IF FILTER HAS AT LEAST ONE PARAMETER YOU HAVE TO WRITE YOUR OWN METHOD CHECKING THEIR CORRECTNESS
+    void IsParametersCorrect(const FilterSetting& setting) override;
+
     void Apply(BMP& bmp_stream) override;
 };
 

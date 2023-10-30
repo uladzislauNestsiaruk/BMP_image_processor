@@ -18,6 +18,8 @@ public:
 
     virtual void Apply(BMP& bmp_stream);
 
+    virtual void IsParametersCorrect(const FilterSetting& setting);
+
     virtual ~Filter(){};
 
 protected:

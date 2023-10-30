@@ -6,3 +6,5 @@
 
 void Filter::Apply(BMP& bmp_stream) {
 }
+void Filter::IsParametersCorrect(const FilterSetting& setting) {
+}

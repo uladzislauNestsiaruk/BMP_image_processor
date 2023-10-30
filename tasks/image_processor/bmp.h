@@ -10,7 +10,7 @@
 #include "color_matrix.h"
 
 static const uint16_t BMP_FILE_HEADER_SIZE = 14;
-
+/// Structure to describe BMP file header
 struct BMPFileHeader {
     uint16_t signature;
     uint32_t file_size;
@@ -18,7 +18,7 @@ struct BMPFileHeader {
     uint16_t reserved2;
     uint32_t offset;
 } __attribute__((packed));
-
+/// Structure to describe BMP dib header
 struct BMPDibHeader {
     uint32_t size;
     int32_t width;
@@ -37,39 +37,39 @@ class BMP {
 
 public:
     BMP(){};
-
+    /// BMP file header getter
     BMPFileHeader& GetFileHeader() {
         return file_header_;
     }
-
+    /// BMP dib header getter
     BMPDibHeader& GetDibHeader() {
         return dib_header_;
     }
-
+    /// BMP pixel storage getter
     ColorMatrix& GetPixelArray() {
         return pixel_array_;
     }
-
+    /// BMP pixel storage setter
     void SetPixelArray(ColorMatrix& pixel_array) {
         pixel_array_ = pixel_array;
     }
-
+    /// Image width(in pixels) setter
     void SetWidth(int32_t width) {
         dib_header_.width = width;
     }
-
+    /// Image height(in pixels) setter
     void SetHeight(int32_t height) {
         dib_header_.height = height;
     }
-
+    /// Image width(in pixels) getter
     const int32_t GetWidth() const {
         return dib_header_.width;
     }
-
+    /// Image height(in pixels) getter
     const int32_t GetHeight() const {
         return dib_header_.height;
     }
-
+    /// Update headers values according to the pixel storage size
     void UpdatePixelArraySizeDescription(uint32_t new_image_size);
 
     ~BMP(){};

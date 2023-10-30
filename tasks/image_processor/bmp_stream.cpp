@@ -76,7 +76,7 @@ void BMPStream::OpenOutputStream(const std::string& output_filename) {
         throw std::logic_error("output file is already open.");
     }
     output_filename_ = output_filename;
-    output_file_.open(output_filename_);
+    output_file_.open(output_filename_, std::ios::binary);
     if (!output_file_.is_open()) {
         throw std::runtime_error("unknown error in OpenOutputStream(filename).");
     }

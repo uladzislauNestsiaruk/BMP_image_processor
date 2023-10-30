@@ -14,6 +14,11 @@ Application::Application(int argc, char **argv) {
         argv_[index] = argv[index];
     }
 }
+
+Application::~Application() {
+    delete[] argv_;
+}
+
 void Application::Execute() {
     CLP clp;
     std::string input_file;

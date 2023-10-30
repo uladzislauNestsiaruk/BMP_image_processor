@@ -12,6 +12,8 @@ public:
 
     void Execute();
 
+    ~Application();
+
 private:
     int argc_;
     char** argv_;

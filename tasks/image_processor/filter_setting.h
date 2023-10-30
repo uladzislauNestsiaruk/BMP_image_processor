@@ -34,13 +34,18 @@ public:
         parameters_amount_ = parameters_amount, parameters_ = parameters;
     }
 
-    ~FilterSetting() {
-        delete parameters_;
-    }
+    ~FilterSetting();
 
 private:
     std::string filter_name_;
     std::string* parameters_;
     uint8_t parameters_amount_;
 };
+FilterSetting::~FilterSetting() {
+    if (parameters_amount_ > 0) {
+        delete[] parameters_;
+    } else {
+        delete parameters_;
+    }
+}
 #endif  // CPP_HSE_FILTER_SETTING_H

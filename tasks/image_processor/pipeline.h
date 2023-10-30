@@ -16,7 +16,7 @@ public:
 
     explicit Pipeline(std::vector<Filter*> filters_list) : filters_list_(filters_list) {
     }
-
+    // Function to apply list of filters to the image
     void ApplyFilters(BMP& bmp_stream);
 
     ~Pipeline();

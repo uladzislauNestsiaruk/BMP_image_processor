@@ -24,12 +24,13 @@ class FilterFactory {
 public:
     explicit FilterFactory(std::vector<FilterSetting> filters_settings_list)
         : filters_settings_list_(filters_settings_list){};
-
+    /// Build pipeline from list of FilterSettings
     const Pipeline BuildPipeline();
 
 private:
     std::vector<FilterSetting> filters_settings_list_;
-
+    /// map to match filter name with filter create function
+    ///!!!IF YOU WANT TO ADD YOUR OWN FUNCTION YOU HAVE TO ADD SUCH MATCHING TO THIS MAP
     std::map<std::string, FilterProdPtr> filters_list_{{"crop", CropFilter::CreateCropFilter},
                                                        {"blur", BlurFilter::CreateBlurFilter},
                                                        {"edge", EdgeDetectionFilter::CreateEdgeDetectionFilter},

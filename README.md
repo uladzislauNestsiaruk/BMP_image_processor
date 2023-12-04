@@ -54,5 +54,5 @@
 ### Результаты применения
 | before                 | Blur                   |Negative              |
 | ---------------------- | ---------------------- |----------------------|
-| ![cat](lenna.bmp)      |  ![dog](out_image.bmp) |                      |  
+| !(lenna.bmp)           |  !(out_image.bmp)      |!(neg.bmp)            |  
 
